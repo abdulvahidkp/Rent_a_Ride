@@ -12,7 +12,6 @@ const addDefaultVehicleAndVehicleTypes = async () => {
       { name: "SUV", typeId: "Car" },
       { name: "Sports", typeId: "Bike" },
     ];
-
     const vehicles = [
       {
         name: "Swift",
