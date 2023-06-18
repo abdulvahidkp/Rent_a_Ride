@@ -19,7 +19,7 @@ The project is organized into two folders: `SERVER` and `CLIENT`.
 
 The server folder contains the backend code. To run the server, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/abdulvahidkp/Movie-Management.git`
+1. Clone the repository: `git clone https://github.com/abdulvahidkp/Rent_a_Ride.git`
 2. Navigate to the project directory: `cd Movie-Management/SERVER`
 3. Install dependencies: `npm install`
 4. Start the server: `npm start`
