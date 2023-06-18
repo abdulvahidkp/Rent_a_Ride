@@ -20,7 +20,7 @@ The project is organized into two folders: `SERVER` and `CLIENT`.
 The server folder contains the backend code. To run the server, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/abdulvahidkp/Rent_a_Ride.git`
-2. Navigate to the project directory: `cd Movie-Management/SERVER`
+2. Navigate to the project directory: `cd Rent_a_Ride/SERVER`
 3. Install dependencies: `npm install`
 4. Start the server: `npm start`
 5. The backend will run on `http://localhost:3000`
@@ -29,7 +29,7 @@ The server folder contains the backend code. To run the server, follow these ste
 
 The client folder contains the frontend code. To run the client, follow these steps:
 
-1. Navigate to the project directory: `cd Movie-Management/CLIENT`
+1. Navigate to the project directory: `cd Rent_a_Ride/CLIENT`
 2. Install dependencies: `npm install`
 3. Start the client: `npm run dev`
 4. The frontend will run on `http://localhost:5173`
