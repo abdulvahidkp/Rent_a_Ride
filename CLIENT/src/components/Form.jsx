@@ -12,11 +12,11 @@ import "react-date-range/dist/styles.css"; // date range main style file
 import "react-date-range/dist/theme/default.css"; // date range theme css file
 
 //helper
-import axios from "./axios";
+import axios from "../config/axios";
 
 let snackMessage = "";
 
-const Form = () => {
+const Form = ({ currentQuestion, setCurrentQuestion }) => {
   const [name, setName] = useState({ firstName: "", lastName: "" });
   const [wheel, setWheel] = useState("");
   const [type, setType] = useState("");
@@ -88,8 +88,22 @@ const Form = () => {
   };
 
   const handleSubmit = async () => {
-    //handle submit logic
-    return;
+    try {
+      setLoading(true);
+      let config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      let { data } = await axios.post("/api/booking", { name, vehicleId, dateRange }, config);
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+      snackMessage = error.response?.data?.message || error.message;
+      setSnackOpen(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

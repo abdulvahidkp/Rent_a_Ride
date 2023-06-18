@@ -3,7 +3,7 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 
 let stepLabels = ["Name", "Wheel", "Type", "Vehicle", "Date"];
 
-const StepperCom = () => {
+const StepperCom = ({currentQuestion}) => {
   return (
     <Stepper activeStep={currentQuestion} style={{ marginBottom: "20px" }}>
       {stepLabels.map((value, index) => (
