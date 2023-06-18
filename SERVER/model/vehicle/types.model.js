@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema(
   {
     name: String,
-    typeId: {
+    wheelId: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "vehicleTypes",
+      ref: "wheels",
     },
   },
   {
@@ -13,6 +13,6 @@ const schema = mongoose.Schema(
   }
 );
 
-const VehicleCategories = mongoose.model("vehicleCategories", schema);
+const Types = mongoose.model("types", schema);
 
-module.exports = { VehicleCategories };
+module.exports = { Types };

@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
   {
-    name: String,
+    wheel: Number,
   },
   {
     timestamps: true,
   }
 );
 
-const VehicleTypes = mongoose.model("vehicleTypes", schema);
+const Wheels = mongoose.model("wheels", schema);
 
-module.exports = { VehicleTypes };
+module.exports = { Wheels };

@@ -1,16 +1,16 @@
 //models
-const { VehicleTypes } = require("../model/vehicle/vehicleTypes.model");
-const { VehicleCategories } = require("../model/vehicle/vehicleCategories.model");
+const { Wheels } = require("../model/vehicle/wheels.model");
+const { Types } = require("../model/vehicle/types.model");
 const { Vehicles } = require("../model/vehicle/vehicles.model");
 
-const addDefaultVehicleAndVehicleTypes = async () => {
+const addDefaultDatas = async () => {
   try {
-    const vehicleTypes = [{ name: "Car" }, { name: "Bike" }];
-    const vehicleCategories = [
-      { name: "Hatchback", typeId: "Car" },
-      { name: "Sedan", typeId: "Car" },
-      { name: "SUV", typeId: "Car" },
-      { name: "Sports", typeId: "Bike" },
+    const wheels = [{ wheel: 2 }, { wheel: 4 }];
+    const types = [
+      { name: "Hatchback", wheelId: 4 },
+      { name: "Sedan", wheelId: 4 },
+      { name: "SUV", wheelId: 4 },
+      { name: "Sports", wheelId: 2 },
     ];
     const vehicles = [
       {
@@ -21,8 +21,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2019,
         price: 1100,
         available: true,
-        typeId: "Car",
-        categoryId: "Hatchback",
+        typeId: "Hatchback",
       },
       {
         name: "Altroz",
@@ -32,8 +31,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2019,
         price: 1200,
         available: true,
-        typeId: "Car",
-        categoryId: "Hatchback",
+        typeId: "Hatchback",
       },
       {
         name: "i20",
@@ -43,8 +41,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2021,
         price: 1200,
         available: true,
-        typeId: "Car",
-        categoryId: "Hatchback",
+        typeId: "Hatchback",
       },
       {
         name: "Verna",
@@ -54,8 +51,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2019,
         price: 1300,
         available: true,
-        typeId: "Car",
-        categoryId: "Sedan",
+        typeId: "Sedan",
       },
       {
         name: "City",
@@ -65,8 +61,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2017,
         price: 1300,
         available: true,
-        typeId: "Car",
-        categoryId: "Sedan",
+        typeId: "Sedan",
       },
       {
         name: "Ciaz",
@@ -76,8 +71,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2022,
         price: 1500,
         available: true,
-        typeId: "Car",
-        categoryId: "Sedan",
+        typeId: "Sedan",
       },
       {
         name: "Brezza",
@@ -87,8 +81,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2022,
         price: 1400,
         available: true,
-        typeId: "Car",
-        categoryId: "SUV",
+        typeId: "SUV",
       },
       {
         name: "Creta",
@@ -98,8 +91,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2022,
         price: 1500,
         available: true,
-        typeId: "Car",
-        categoryId: "SUV",
+        typeId: "SUV",
       },
       {
         name: "Compass",
@@ -109,8 +101,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2022,
         price: 1800,
         available: true,
-        typeId: "Car",
-        categoryId: "SUV",
+        typeId: "SUV",
       },
       {
         name: "R15",
@@ -120,8 +111,7 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2020,
         price: 900,
         available: true,
-        typeId: "Bike",
-        categoryId: "Sports",
+        typeId: "Sports",
       },
       {
         name: "Duke",
@@ -131,29 +121,27 @@ const addDefaultVehicleAndVehicleTypes = async () => {
         year: 2021,
         price: 1000,
         available: true,
-        typeId: "Bike",
-        categoryId: "Sports",
+        typeId: "Sports",
       },
     ];
 
-    const vehicleTypesCount = await VehicleTypes.countDocuments();
+    const wheelsCount = await Wheels.countDocuments();
 
     //when the app is running for the first time it will check the DB if any default data added to it. If it's not then it will add default to DB.
-    if (!vehicleTypesCount) {
-      let savedVehicleTypes = await VehicleTypes.insertMany(vehicleTypes);
-      vehicleCategories.forEach((category) => {
+    if (!wheelsCount) {
+      let savedWheels = await Wheels.insertMany(wheels);
+      types.forEach((type) => {
         //find vehicle type Object_id and replace vehicle type name with it's Object_id
-        let vehicleType = savedVehicleTypes.find((SavedvehicleType) => SavedvehicleType.name === category.typeId);
-        category.typeId = vehicleType._id;
+        let wheelDoc = savedWheels.find((savedWheel) => savedWheel.wheel === type.wheelId);
+        type.wheelId = wheelDoc._id;
       });
 
-      let savedVehicleCategories = await VehicleCategories.insertMany(vehicleCategories);
+      let savedTypes = await Types.insertMany(types);
       vehicles.forEach((vehicle) => {
-        let savedVehicleCategory = savedVehicleCategories.find((savedVehicleCategory) => {
-          return savedVehicleCategory.name === vehicle.categoryId;
+        let typeDoc = savedTypes.find((savedType) => {
+          return savedType.name === vehicle.typeId;
         });
-        vehicle.categoryId = savedVehicleCategory._id;
-        vehicle.typeId = savedVehicleCategory.typeId;
+        vehicle.typeId = typeDoc._id;
       });
       await Vehicles.insertMany(vehicles);
     }
@@ -162,4 +150,4 @@ const addDefaultVehicleAndVehicleTypes = async () => {
   }
 };
 
-module.exports = { addDefaultVehicleAndVehicleTypes };
+module.exports = { addDefaultDatas };

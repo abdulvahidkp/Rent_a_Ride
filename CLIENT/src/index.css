@@ -1,0 +1,12 @@
+:root {
+  background-image: linear-gradient(to right top, #99a7bc, #55bfe0, #00d7d4, #00e891, #a8eb12);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}

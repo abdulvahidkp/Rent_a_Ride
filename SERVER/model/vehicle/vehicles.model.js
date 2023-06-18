@@ -14,11 +14,7 @@ const schema = mongoose.Schema(
     },
     typeId: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "vehicleTypes",
-    },
-    categoryId: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "vehicleCategories",
+      ref: "types",
     },
   },
   {

@@ -1,9 +1,9 @@
-const { getVehicleTypes, getVehicleCategories, getVehicles } = require('../controllers/vehicle.controllers');
-
 const Router = require('express').Router();
 
-Router.route('/').get(getVehicleTypes)
-Router.route('/:typeId').get(getVehicleCategories)
-Router.route('/:typeId/:categoryId').get(getVehicles)
+const { getWheels, getTypes, getVehicles } = require('../controllers/vehicle.controllers');
+
+Router.route('/').get(getWheels)
+Router.route('/:wheelId').get(getTypes)
+Router.route('/type/:typeId').get(getVehicles)
 
 module.exports = Router

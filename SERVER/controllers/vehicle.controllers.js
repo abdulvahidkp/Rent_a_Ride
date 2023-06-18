@@ -2,34 +2,36 @@
 const mongoose = require("mongoose");
 
 //models
-const { VehicleTypes } = require("../model/vehicle/vehicleTypes.model");
-const { VehicleCategories } = require("../model/vehicle/vehicleCategories.model");
+const { Wheels } = require("../model/vehicle/wheels.model");
+const { Types } = require("../model/vehicle/types.model");
 const { Vehicles } = require("../model/vehicle/vehicles.model");
 
 //helpers
 const { errorCatcher } = require("../helpers/errorCatcher");
 
-const getVehicleTypes = errorCatcher(async (req, res) => {
-  let vehicleTypes = await VehicleTypes.find();
-  res.status(200).json(vehicleTypes);
+const getWheels = errorCatcher(async (req, res) => {
+  let wheels = await Wheels.find();
+  res.status(200).json(wheels);
 });
 
-const getVehicleCategories = errorCatcher(async (req, res) => {
-  const { typeId } = req.params;
+const getTypes = errorCatcher(async (req, res) => {
+  const { wheelId } = req.params;
   //validating params is valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(typeId)) throw new Error("Please provide valid ObjectId as params");
+  if (!mongoose.Types.ObjectId.isValid(wheelId)) throw new Error("Please provide valid ObjectId as params");
 
-  let vehicleCategories = await VehicleCategories.find({ typeId });
-  res.status(200).json(vehicleCategories);
+  let types = await Types.find({ wheelId });
+  res.status(200).json(types);
 });
 
 const getVehicles = errorCatcher(async (req, res) => {
-  const { categoryId, typeId } = req.params;
+  const { typeId } = req.params;
+  
   //validating params is valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(typeId) || !mongoose.Types.ObjectId.isValid(categoryId)) throw new Error("Please provide valid ObjectId as params");
+  if (!mongoose.Types.ObjectId.isValid(typeId))
+    throw new Error("Please provide valid ObjectId as params");
 
-  let vehicles = await Vehicles.find({ categoryId, typeId });
+  let vehicles = await Vehicles.find({ typeId });
   res.status(200).json(vehicles);
 });
 
-module.exports = { getVehicleTypes, getVehicleCategories, getVehicles };
+module.exports = { getWheels, getTypes, getVehicles };
