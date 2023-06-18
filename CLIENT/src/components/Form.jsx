@@ -16,7 +16,7 @@ import axios from "../config/axios";
 
 let snackMessage = "";
 
-const Form = ({ currentQuestion, setCurrentQuestion }) => {
+const Form = ({ currentQuestion, setCurrentQuestion, setFormData }) => {
   const [name, setName] = useState({ firstName: "", lastName: "" });
   const [wheel, setWheel] = useState("");
   const [type, setType] = useState("");
@@ -75,7 +75,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
     }
 
     if (currentQuestion === 2) {
-      if (type === "") return setFormErrors({ type: "Please select the type of vehicle." });
+      if (type === "") return setFormErrors({ type: "Please select the type of the vehicle." });
       fetchData(`/api/vehicle/type/${type}`);
     }
 
@@ -88,6 +88,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
   };
 
   const handleSubmit = async () => {
+    if (loading) return;
     try {
       setLoading(true);
       let config = {
@@ -96,7 +97,8 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
         },
       };
       let { data } = await axios.post("/api/booking", { name, vehicleId, dateRange }, config);
-      console.log(data);
+      setCurrentQuestion(0)
+      setFormData({...data,submitted:true});
     } catch (error) {
       console.log(error.message);
       snackMessage = error.response?.data?.message || error.message;
@@ -111,7 +113,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
       {currentQuestion === 0 && (
         <div>
           <Typography variant="h5" gutterBottom>
-            First, What's your name?
+          First, may I have your name, please?
           </Typography>
           <TextField
             label="First Name"
@@ -137,7 +139,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
       )}
       {currentQuestion === 1 && (
         <RadioInput
-          title={`Hi ${name.firstName}, How many wheels do you want?`}
+          title={`Hello, ${name.firstName}. How many wheels would you like?`}
           state={wheel}
           setState={setWheel}
           currData={currData}
@@ -150,7 +152,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
 
       {currentQuestion === 2 && (
         <RadioInput
-          title={`Which type of vehicle do you want?`}
+          title={`What type of vehicle are you interested in?`}
           state={type}
           setState={setType}
           currData={currData}
@@ -163,7 +165,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
 
       {currentQuestion === 3 && (
         <RadioInput
-          title={`Which vehicle do you want?`}
+          title={`Which specific vehicle model are you considering?`}
           state={vehicleId}
           setState={setVehicleId}
           currData={currData}
@@ -177,7 +179,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
       {currentQuestion === 4 && (
         <div>
           <Typography variant="h5" gutterBottom>
-            Great choice! Choose a date.
+          Please choose a date for your appointment.
           </Typography>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <DateRange
@@ -203,7 +205,7 @@ const Form = ({ currentQuestion, setCurrentQuestion }) => {
         </Button>
       ) : (
         <Button fullWidth variant="contained" size="large" disabled={loading} color="success" onClick={handleSubmit}>
-          Book now
+          {loading ? "Loading.." : "Book now"}
         </Button>
       )}
       {/* to show any error while fetch items from backend as like toast*/}

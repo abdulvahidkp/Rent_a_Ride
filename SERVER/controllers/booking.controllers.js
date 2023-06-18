@@ -37,6 +37,7 @@ const bookAVehicle = errorCatcher(async (req, res) => {
   if (overlappingBooking) throw new Error("There are already bookings on the selected date range.");
 
   let savedBooking = await Bookings.create(newBooking);
+  savedBooking = await savedBooking.populate({ path: "vehicleId", populate: { path: "typeId", select: "name" } });
 
   res.status(200).json(savedBooking);
 });
