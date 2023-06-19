@@ -25,6 +25,8 @@ The server folder contains the backend code. To run the server, follow these ste
 4. Start the server: `npm start`
 5. The backend will run on `http://localhost:3000`
 
+`Note:` Make sure you have MongoDB installed and running on your computer, as the application requires it for data storage. There is also a data seeding process that runs when the application is started for the first time.
+
 ### Client
 
 The client folder contains the frontend code. To run the client, follow these steps:
